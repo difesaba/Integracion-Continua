@@ -6,7 +6,7 @@ nav {
     color: white !important;
     font-size: 26px;
 }
-nav , div  > span{
+nav , div  > span{ 
     padding: 7px;
 }
  
