@@ -1,0 +1,40 @@
+body{
+    background-color: black;
+}
+nav {
+    background-color: #1d1d1f !important;
+    color: white !important;
+    font-size: 26px;
+}
+nav , div  > span{
+    padding: 7px;
+}
+ 
+.content-login{
+ 
+    display: flex;
+    justify-content: center;
+}
+ 
+.login{
+    color: #fff;
+    width: 500px;
+    height: auto;
+    padding: none !important;  
+    margin-top: 30px;
+    margin: 100px 10px 10px 10px;
+    border-radius: 5px;
+    background: rgb(0,0,0);
+    background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(29,29,31,1) 100%);
+}
+ 
+.nav-login{
+    background-color: black !important;
+    color: white;
+    font-size: 22px;
+}
+ 
+.padding-login{
+    padding: 50px;
+    border-radius: 5px;
+}
