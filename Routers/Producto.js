@@ -2,7 +2,7 @@ const sql = require('mssql');
 const express = require('express');
 const router = express.Router();
 
-router.get('path', (req, res) => {
+router.get('/', (req, res) => {
     var request = new sql.Request();
     request.execute('dbo.Producto', function (err, recordset) {
         if (err) console.log(err)
@@ -11,7 +11,7 @@ router.get('path', (req, res) => {
 });
 
 
-router.post('path', (req, res) => {
+router.post('/crearProducto', (req, res) => {
     request.input('IdTipoP', req.body.idTipoP)
     request.input('IdEstadoP', req.body.idEstadoP)
     request.input('NombreProducto', req.body.nombreProducto)
@@ -25,8 +25,7 @@ router.post('path', (req, res) => {
 
 });
 
-router.put('path', (req, res) => {
-    router.post('path', (req, res) => {
+router.put('/actualizaProducto', (req, res) => {
         request.input('IdProducto', req.body.idProducto)
         request.input('IdTipoP', req.body.idTipoP)
         request.input('IdEstadoP', req.body.idEstadoP)
@@ -40,13 +39,12 @@ router.put('path', (req, res) => {
         });
     
     });
-});
+ 
 
-router.delete('path', (req, res) => {
-    router.delete('path', (req, res) => {
+router.delete('/eliminaProducto', (req, res) => {
         request.query(' DELETE FROM CrearProducto WHERE IdProducto = '+ req.body.idP, function (err, result) {
             if (err) console.log(err)
             res.send(result.rowsAffected);
         });
     });
-});
+ 
