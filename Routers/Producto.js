@@ -26,7 +26,6 @@ router.post('/crearProducto', (req, res) => {
 });
 
 router.put('/actualizaProducto', (req, res) => {
-    router.post('path', (req, res) => {
         request.input('IdProducto', req.body.idProducto)
         request.input('IdTipoP', req.body.idTipoP)
         request.input('IdEstadoP', req.body.idEstadoP)
@@ -40,13 +39,12 @@ router.put('/actualizaProducto', (req, res) => {
         });
     
     });
-});
+ 
 
-router.delete('path', (req, res) => {
-    router.delete('path', (req, res) => {
+router.delete('/eliminaProducto', (req, res) => {
         request.query(' DELETE FROM CrearProducto WHERE IdProducto = '+ req.body.idP, function (err, result) {
             if (err) console.log(err)
             res.send(result.rowsAffected);
         });
     });
-});
+ 
