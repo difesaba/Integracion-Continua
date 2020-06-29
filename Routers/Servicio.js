@@ -22,9 +22,4 @@ router.post('/crearServicio', (req, res) => {
     });
 
 });
-router.put('path', (req, res) => {
-
-});
-router.delete('path', (req, res) => {
-
-});
+ 
