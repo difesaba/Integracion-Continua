@@ -1,0 +1,33 @@
+{
+  "name": "integracion-continua",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bcrypt": "^4.0.1",
+    "bootstrap": "^4.5.0",
+    "chai": "^4.2.0",
+    "express": "^4.17.1",
+    "mssql": "^6.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^8.0.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/difesaba/Integracion-Continua.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/difesaba/Integracion-Continua/issues"
+  },
+  "homepage": "https://github.com/difesaba/Integracion-Continua#readme"
+}
