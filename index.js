@@ -25,7 +25,7 @@ sql.connect(config, (err) => {
         console.log('Conectado a SqlServer');
     }
 });
-*/
+*//*
 app.use(express.json());
 app.use(express.static(__dirname + '/Views'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
@@ -37,6 +37,7 @@ app.get('/',function(req,res){
     res.sendFile(path.join(__dirname+'/index.html'));
 
   });
+  */
 app.listen(port, () => {
     console.log(`servidor corriendo`);
 });
