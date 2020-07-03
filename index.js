@@ -17,6 +17,7 @@ const config = {
     }
 }
 //middleware
+/*
 sql.connect(config, (err) => {
     if (err) {
         console.log(err);
@@ -24,7 +25,7 @@ sql.connect(config, (err) => {
         console.log('Conectado a SqlServer');
     }
 });
-
+*/
 app.use(express.json());
 app.use(express.static(__dirname + '/Views'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
