@@ -18,14 +18,14 @@ const config = {
 }
 //middleware
 
-
+/*
 sql.connect(config, (err) => {
     if (err) {
         console.log(err);
     } else {
         console.log('Conectado a SqlServer');
     }
-});
+});*/
 
 app.use(express.json());
 app.use(express.static(__dirname + '/Views'));
