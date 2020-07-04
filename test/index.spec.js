@@ -8,8 +8,10 @@ describe('test', () => {
     
     setTimeout(done, 150);
   })
-  
-  it('Devuelve la nonexion ', () => {
+
+  it('Devuelve la Conexion ', () => {
     expect('servidor corriendo').to.equal('servidor corriendo');
   });
+  
+  
 });
