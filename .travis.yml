@@ -1,7 +1,9 @@
-install: travis_wait mvn install
+
 language: node_js
 node_js: 
   - "stable"
+  
+
 
 cache:
   npm
