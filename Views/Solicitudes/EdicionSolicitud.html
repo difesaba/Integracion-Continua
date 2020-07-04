@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="../Inicio/inicio.aspx">Inicio</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Solicitudes</li>
+          <li class="breadcrumb-item"><a href="InfEditSolicitud.aspx">Edición de Solicitud</a></li>
+        </ol>
+      </nav>
+      <div ng-app="edicionApp">
+          <div ng-controller="edicionController">
+              <div class="container-fluid">
+                  <h6 style="color: #007bff">Creación Solicitud</h6>
+              </div>
+              <div class="container-fluid">
+                  <div class="container-fluid" style="background-color: #f5f6fa; padding: 5px; color: #007bff">
+                      <i class="fas fa-arrow-circle-left fa-2x"></i>
+                      <i class="fas fa-plus-circle fa-2x"></i>
+                      <i class="fas fa-print fa-2x"></i>
+                  </div>
+              </div>
+              </br>
+              <div class="container-fluid">
+                  <fieldset class="container-fluid border-content">
+                      <legend style="color: #4E8FCB !important">Encabezado</legend>
+                      <div class="container-fluid">
+                          <div class="row">
+                              <div class="col-sm-3 tittle-head-color">
+                                  <label for="formGroupExampleInput">Solicitud No :</label>
+                              </div>
+                              <div class="col-sm-3">
+                                  <label id="consecutivo">{{encabezado.solicitud.SolicitudNumero}}</label>
+                              </div>
+                              <div class="col-sm-3 tittle-head-color"> 
+                                  <label for="formGroupExampleInput">Fecha :</label>
+                              </div>
+                              <div class="col-sm-3">
+                                  <label for="formGroupExampleInput" id="FechaActual">{{encabezado.solicitud.SolicitudFecha}}</label>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-sm-3 tittle-head-color">
+                                  <label for="formGroupExampleInput">Empresa :</label>
+                              </div>
+                              <div class="col-sm-3">
+                                  <label for="formGroupExampleInput">{{encabezado.empresa.EmpresaNombre}}</label>
+                              </div>
+                         
+                              <div class="col-sm-3 tittle-head-color">
+                                  <label for="formGroupExampleInput">NIT :</label>
+                              </div>
+                              <div class="col-sm-3">
+                                  <label for="formGroupExampleInput">{{encabezado.empresa.EmpresaNit}}</label>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-sm-3 tittle-head-color">
+                                  <label for="formGroupExampleInput">Fecha Inicio :</label>
+                              </div>
+                              <div class="col-sm-3">
+                                  <input type="text" class="form-control form-control-sm input-Fecha" id="txtFechaInicio"  value="{{encabezado.solicitud.SolicitudFechaInicio}}"     />
+                              </div>
+                              <div class="col-sm-3 tittle-head-color">
+                                  <label for="formGroupExampleInput">Fecha Fin :</label>
+                              </div>
+                              <div class="col-sm-3">
+                                  <input type="text" class="form-control form-control-sm input-Fecha" id="txtFechaFin" value="{{encabezado.solicitud.SolicitudFechaInicio}}" />
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-sm-3 tittle-head-color">
+                                  <label for="formGroupExampleInput">Observaciones :</label>
+                              </div>
+                              <div class="col-sm-1">
+                                  <i class="far fa-sticky-note fa-2x" style="color: #007bff;" data-toggle="modal" data-target="#modalObservaciones"></i>
+                              </div>
+                          </div>
+                      </div>
+                  </fieldset>
+                  </br>
+             
+                  <fieldset class="container-fluid border-content">
+                      <legend style="color: #4E8FCB !important">Detalle</legend>
+  
+                      <table class="table table-bordered">
+                          <thead class="thead-table">
+                              <tr>
+                                  <th scope="col">Producto</th>
+                                  <th scope="col" class="size-um-solicitud">UM</th>
+                                  <th scope="col" class="size-cant-solicitud">Cantidad</th>
+                                  <th scope="col" class="icon-table-size">Guardar</th>
+                                   <th scope="col" class="icon-table-size">Eliminar</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr ng-repeat="p in detalleSolic">
+                                  <td class="label-td-solicitud">
+                                      <div class="row">
+                                          <div class="col-sm-12">
+                                              <label for id="formGroupExampleInput" >{{p.productos.ProductoDescripcion}}</label>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  <td class="label-td-solicitud">
+                                      <div class="row">
+                                          <div class="col-sm-12">
+                                              <label for id="formGroupExampleInput" >{{p.unidad.UnidadSiglas}}</label>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  <td class="label-td-solicitud">
+                                      <div class="row">
+                                          <div class="col-sm-12 alling-numbers">
+                                              <input type="text" class="form-control form-control-sm alling-numbers"  value="{{p.solicitudDetalle.SolicitudDetCant}}" id="{{p.solicitudDetalle.SolicitudDetId}}">
+                                          </div>
+                                      </div>
+                                  </td>
+                                  <td class="icon-table-aling icon-solicitud-det">
+                                      <i class="fas fa-save fa-lg"  ng-click="guardar(p)"></i>                          
+                                  </td>
+                                  <td class="icon-table-aling icon-solicitud-det">
+                                      <i class="fas fa-times fa-lg"></i>                          
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="input-td-solicitud">
+                                      <div class="row">
+                                          <div class="col-sm-12">
+                                              <div class="group autocomplete" id="DivAcProducto" webmethod="CompleteProd">
+                                          <div class="input-icon-right">
+                                              <input type="text" class="form-control form-control-sm" id="txtProducto" name="txtProducto" placeholder="Buscar Producto" ng-blur="completarDatosProducto()">
+                                              <i class="fas fa-search" aria-hidden="true"></i>
+                                          </div>
+                                      </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  <td class="label-td-solicitud">
+                                      <div class="row">
+                                          <div class="col-sm-12">
+                                              <label for id="txtUm" >{{datosProducto}}</label>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  <td class="input-td-solicitud">
+                                      <div class="row">
+                                          <div class="col-sm-12" >
+                                              <input type="text" class="form-control form-control-sm alling-numbers"  id="txtCant" value="0.00">
+                                          </div>
+                                      </div>
+                                  </td>
+                                  <td class="icon-table-aling icon-solicitud-det">
+                                      <i class="fas fa-save fa-lg" ng-click="nuevoDetalle()"></i>                              
+                                  </td>
+                                   
+                              </tr>
+                          </tbody>
+                      </table>
+                  </fieldset>
+              
+              </div>
+              <!-- Modals -->
+              <!-- Modal Observaciones -->
+              <div class="modal fade" id="modalObservaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Observaciones</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <textarea class="form-control" id="txtObservaciones" rows="3">{{encabezado.solicitud.SolicitudObservacion}}</textarea>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  
+              <!-- Modal Observaciones -->
+              <!-- Modal Terceros -->
+              <div class="modal fade" id="modalTerceros" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Terceros</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <div class="row">
+                          <div class="col-sm-9">
+                              <div class="group autocomplete" id="DivAcProducto" webmethod="CompleteTercero">
+                                  <div class="input-icon-right">
+                                      <input type="text" class="form-control form-control-sm" id="txtTercero" placeholder="Buscar Terceros" ng-model="filterTercero">
+                                      <i class="fas fa-search" aria-hidden="true"></i>
+                                  
+                                  </div>
+                               </div>
+                          </div> 
+                      </div>
+                      </br>
+                          <table class="table">
+                              <thead class="thead-table table-bordered">
+                                  <tr>
+                                      <th scope="col" class="tamano-codigo-table">Codigo</th>
+                                      <th scope="col">Tercero</th>
+                                      <th scope="col" class="icon-table-size">Agregar</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr ng-repeat="p in listaTercero | filter: filterTercero">
+                                      <td style="padding:3px;">{{p.usuario.UsuarioId}}</td>
+                                      <td style="padding:3px;">{{p.usuario.UsuarioNombre}}</td>
+                                      <td style="padding-top:5px; padding-right: 3px; padding-left:3px; padding-bottom:3px;">
+                                          <input type="checkbox" class="form-control" aria-label="Text input with checkbox" ng-click="agregarTerceros(p)" ng-checked="p.Check">
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+                  </div>
+              </div>
+          </div>
+              </div>
+      
+              <!-- Modal Terceros -->
+              <!-- Modals -->
+              <input type="hidden" id="idSolicitud"  />
+          </div>
+      </div>
+</body>
+</html>

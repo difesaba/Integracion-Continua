@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="../Inicio/inicio.aspx">Inicio</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Administración de Productos</li>
+            <li class="breadcrumb-item active" aria-current="page">Productos</li>
+        </ol>
+    </nav>
+    <div ng-app="productosApp">
+        <div ng-controller="productosController">
+            </br>
+            <div class="container-fluid">
+                <h6 style="color: #007bff">Productos</h6>
+            </div>
+            <div class="container-fluid">
+                <fieldset class="container-fluid border-content">
+                    <legend style="color: #4E8FCB !important">Filtros</legend>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div class="form-group ">
+                                    <label for="formGroupExampleInput">Producto</label>
+                                    <div class="group autocomplete" id="DivAcProducto" webmethod="CompleteProd">
+                                        <div class="input-icon-right">
+                                            <input type="text" class="form-control form-control-sm" id="txtProducto"
+                                                name="txtProducto" placeholder="Buscar Producto" maxlength="100">
+                                            <i class="fas fa-search" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group ">
+                                    <label for="formGroupExampleInput">Unidad de Medida</label>
+                                    <select class="custom-select custom-select-sm" name="txtUnidad" id="txtUnidad">
+                                        <option selected value="-1">Seleccione</option>
+                                        <option ng-repeat="option in misunidades" value="{{option.UnidadId}}">
+                                            {{option.UnidadSiglas}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group ">
+                                    <label for="formGroupExampleInput">Estado</label>
+                                    <select class="custom-select custom-select-sm" name="txtEstado" id="txtEstado">
+                                        <option selected value="-1">Seleccione</option>
+                                        <option ng-repeat="option in estados" value="{{option.EstadosId}}">
+                                            {{option.EstadosDescripcion}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class=" col-sm-1">
+                                <div class="form-group ">
+
+                                    <button type="button" class="btn btn-primary  button-search"
+                                        ng-click="consultarProductos()">Consultar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            </br>
+            <div class="container-fluid">
+                <span data-toggle="modal" data-target="#createModal"><i class="fas fa-plus-circle fa-2x icon-table"
+                        ng-click="consecutivo()" title="Crear" data-toggle="tooltip" data-placement="right"></i></span>
+                <i class="fas fa-file-excel fa-2x icon-table" onclick="ExportToExcel();" title="Exportar"
+                    data-toggle="tooltip" data-placement="right"></i>
+                <i class="fas fa-print fa-2x icon-table" onclick=" imprimir()" title="Imprimir" data-toggle="tooltip"
+                    data-placement="right"></i>
+                <input type="file" name="txtarchivo" id="txtarchivo" value="" />
+                <i class="fas fa-cloud-upload-alt fa-2x icon-table" onclick="ImportarArchivo()" title="Cargar"
+                    data-toggle="tooltip" data-placement="right"></i>
+            </div>
+            <br>
+            <div class="container-fluid">
+                <table class="table table-bordered" id="tableProductos">
+                    <thead class="thead-table">
+                        <tr>
+                            <th scope="col" class="tamano-codigo-table">Codigó</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col" class="tamano-siglas-table">Unidad Medida</th>
+                            <th scope="col" class="tamano-fecha-table">Fecha</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col" class="icon-table-size">Edición</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="p in productos">
+                            <td>{{p.producto.ProductoId}}</td>
+                            <td>{{p.producto.ProductoDescripcion}}</td>
+                            <td>{{p.unidadMedida.UnidadSiglas}}</td>
+                            <td>{{p.producto.ProductoFecha}}</td>
+                            <td>{{p.EstadosDescripcion}}</td>
+                            <td class="icon-table-aling"><i class="fas fa-edit fa-lg icon-table"
+                                    ng-click="abriredicion(p)"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <!-- Modal -->
+            <!-- Creacion -->
+            <div class="modal fade bd-example-modal-lg" id="createModal" tabindex="-1" role="dialog"
+                aria-labelledby="createModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="createModalLabel">Creación</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+
+                                <table class="table table-bordered" id="tableSd">
+                                    <thead class="thead-table">
+                                        <tr>
+                                            <th scope="col" class="tamano-codigo">Codigó</th>
+                                            <th scope="col">Descripción</th>
+                                            <th scope="col">Unidad Medida</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="padding-input-modal">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+
+                                                        <input type="text"
+                                                            class="form-control form-control-sm  label-modal"
+                                                            id="txtCodigo" value="{{newConsecutivo.NewCodigo}}"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="padding-input-modal">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control form-control-sm  "
+                                                            id="txtDescripcion" placeholder="Ingrese la descripcion   "
+                                                            ng-model="nuevo.descripcion">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="padding-input-modal">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <select class="custom-select custom-select-sm" name="txtUm"
+                                                            id="txtUm">
+                                                            <option selected value="-1">Seleccione</option>
+                                                            <option ng-repeat="option in misunidades"
+                                                                value="{{option.UnidadId}}">{{option.UnidadSiglas}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                            <button type="button" class="btn btn-primary" ng-click="agregarProducto()">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Creacion -->
+            <!-- Edicion -->
+            <div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog"
+                aria-labelledby="editModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Edición</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+
+                                <table class="table table-bordered">
+                                    <thead class="thead-table">
+                                        <tr>
+                                            <th scope="col">Descripción</th>
+                                            <th scope="col">Unidad Medida</th>
+                                            <th scope="col">Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="padding-input-modal">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" ng-model="edicion.ProductoDescripcion"
+                                                            class="form-control form-control-sm" id="txtDescripcionEdit"
+                                                            placeholder="Buscar Producto">
+                                                        <input type="hidden" id="txtCodEdit"
+                                                            value="{{edicion.ProductoId}}" />
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="padding-input-modal">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <select class="custom-select custom-select-sm"
+                                                            ng-options="item as item.UnidadSiglas for item in misunidades track by item.UnidadId"
+                                                            ng-model="selectedUM"></select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="padding-input-modal">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <select class="custom-select custom-select-sm"
+                                                            ng-options="es as es.EstadosDescripcion for es in estados track by es.EstadosId"
+                                                            ng-model="selectedEstado"></select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                            <button type="button" class="btn btn-primary" ng-click="actualizar()">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Edicion -->
+            <!-- Modal -->
+
+
+        </div>
+    </div>
+</body>
+
+</html>

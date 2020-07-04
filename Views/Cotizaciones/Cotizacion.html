@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="../Inicio/inicio.aspx">Inicio</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Cotizaciones</li>
+          <li class="breadcrumb-item active" aria-current="page">Creación de Cotización</li>
+        </ol>
+      </nav>
+      <div ng-app="cotizacionApp">
+          <div ng-controller="cotizacionController">
+              <div class="container-fluid">
+                  <h6 style="color: #007bff">Creación de Cotización</h6>
+              </div>
+              <div class="container-fluid">
+                  <fieldset class="container-fluid border-content">
+                      <legend style="color: #4E8FCB !important">Filtros</legend>
+                      <div class="container-fluid">
+                          <div class="row">
+                              <div class="col-sm-2">
+                                  <div class="form-group ">
+                                      <label for="formGroupExampleInput">Solicitud N°</label>
+                                      <input type="text" class="form-control form-control-sm" id="txtNumero" name="txtNumero" placeholder="Ingrese el Numero">
+                                  </div>
+                              </div>
+                              <div class="col-sm-3">
+                                  <div class="form-group ">
+                                      <label for="formGroupExampleInput">Fecha Inicial</label>
+                                      <input type="text" class="form-control form-control-sm" id="txtFechaInicio" name="txtFechaInicio" >
+                                  </div>
+                              </div>
+                              <div class="col-sm-3">
+                                  <div class="form-group ">
+                                      <label for="formGroupExampleInput">Fecha Final</label>
+                                      <input type="text" class="form-control form-control-sm " id="txtFechaFin" name="txtFechaFin" >
+                                  </div>
+                              </div>
+                              <div class=" col-sm-1">
+                                  <div class="form-group ">
+                                      <button type="button" class="btn btn-primary  button-search" ng-click="consultar()">Consultar</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </fieldset>
+                  <br />
+                  <table class="table table-bordered" id="tableProductos">
+                      <thead class="thead-table">
+                          <tr>
+                              <th scope="col" class="tamano-codigo-table">Solicitud</th>
+                              <th scope="col" class="size-date-aprob">Fecha Incio</th>
+                              <th scope="col" class="size-date-aprob">Fecha Fin</th>
+                              <th scope="col">Observación</th>
+                              <th scope="col" class="size-status-aprob">Estado</th>
+                              <th scope="col" class="icon-table-size">Cotizar</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr ng-repeat="p in consulta">
+                              <td>{{p.solicitud.SolicitudNumero}}</td>
+                              <td>{{p.solicitud.SolicitudFechaInicio}}</td>
+                              <td>{{p.solicitud.SolicitudFechaFin}}</td>
+                              <td>{{p.solicitud.SolicitudObservacion}}</td>
+                              <td>{{p.estado.EstadoDescripcion}}</td>
+                              <td class="icon-table-aling"><a href="CrearCotizacion.aspx?solicitudId={{p.solicitud.SolicitudNumero}}"><i class="fas fa-file-alt fa-lg"></i></a></td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+</body>
+</html>

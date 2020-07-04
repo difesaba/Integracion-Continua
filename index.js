@@ -17,6 +17,8 @@ const config = {
     }
 }
 //middleware
+
+
 sql.connect(config, (err) => {
     if (err) {
         console.log(err);
